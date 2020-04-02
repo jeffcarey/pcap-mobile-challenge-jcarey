@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="blog_post_title" type="id" />
+    <item name="blog_post_description" type="id" />
+    <item name="blog_post_image" type="id" />
+    <item name="web_page_container" type="id" />
+    <item name="web_view" type="id" />
+    <item name="menu_item_refresh" type="id" />
+</resources>
