@@ -85,7 +85,7 @@ class MainActivity : AppCompatActivity() {
         val refreshId = R.id.menu_item_refresh
 
         if (menu.findItem(refreshId) == null) {
-            val item = menu.add(Menu.NONE, refreshId, 0, "Refresh")
+            val item = menu.add(Menu.NONE, refreshId, 0, R.string.menu_item_refresh)
             item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
         }
         return super.onPrepareOptionsMenu(menu)

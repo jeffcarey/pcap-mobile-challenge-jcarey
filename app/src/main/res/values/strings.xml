@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">PCAP blog</string>
+    <string name="menu_item_refresh">Refresh</string>
 </resources>
