@@ -11,3 +11,4 @@ In doing this project, I attempted to follow these principles:
 The following were things I would look to do with more time or if this were a production app:
 * Unit and UI testing
 * Better usage of resource files for UI elements like padding, font sizes, etc.
+* Caching of images -- Currently they reload each time due to use of RecyclerView
