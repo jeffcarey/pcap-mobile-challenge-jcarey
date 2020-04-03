@@ -68,7 +68,7 @@ class MainActivity : AppCompatActivity() {
 
         // Get data via ViewModel
         viewModel = ViewModelProvider(this).get(BlogFeedViewModel::class.java)
-        viewModel.feed.observe(this, Observer { feed->
+        viewModel.mediator.observe(this, Observer { feed ->
             blogPostAdapter.setData(feed.posts)
             blogPostAdapter.notifyDataSetChanged()
             title = feed.feedTitle
@@ -95,7 +95,9 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.menu_item_refresh -> {
-
+                mainView.removeView(articlesRecyclerView)
+                mainView.addView(loaderContainer)
+                viewModel.refresh()
                 true
             }
             else -> super.onOptionsItemSelected(item)
