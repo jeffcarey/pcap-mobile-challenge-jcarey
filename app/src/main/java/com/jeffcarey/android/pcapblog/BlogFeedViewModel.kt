@@ -2,12 +2,12 @@ package com.jeffcarey.android.pcapblog
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.jeffcarey.android.pcapblog.models.BlogPost
+import com.jeffcarey.android.pcapblog.models.BlogFeed
 
 class BlogFeedViewModel : ViewModel() {
-    val posts: LiveData<List<BlogPost>>
+    val feed: LiveData<BlogFeed>
     init {
-        posts = BlogRepository.getPosts()
+        feed = BlogRepository.getFeed()
     }
 
     fun cancelJobs() {

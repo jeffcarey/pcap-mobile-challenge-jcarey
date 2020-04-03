@@ -1,18 +1,19 @@
 package com.jeffcarey.android.pcapblog.net
 
 import com.jeffcarey.android.pcapblog.models.BlogPost
+import com.jeffcarey.android.pcapblog.models.BlogFeed
 import org.xmlpull.v1.XmlPullParser
 import org.xmlpull.v1.XmlPullParserFactory
 import java.io.InputStream
 import java.net.URL
 
 object FeedReader {
-   suspend fun read(feedUrl: String): List<BlogPost> {
+   suspend fun read(feedUrl: String): BlogFeed {
       val url = URL(feedUrl)
       val factory = XmlPullParserFactory.newInstance()
       val xpp = factory.newPullParser()
       xpp.setInput(getInputStream(url), "UTF_8")
-      val posts: MutableList<BlogPost> = mutableListOf<BlogPost>()
+      val blogFeed = BlogFeed()
       var eventType = xpp.getEventType()
       var insideItem: Boolean = false
       var title: String = ""
@@ -26,6 +27,8 @@ object FeedReader {
             } else if (xpp.name == "title") {
                if (insideItem) {
                   title = xpp.nextText()
+               } else {
+                  blogFeed.feedTitle = xpp.nextText()
                }
             } else if (xpp.name == "link") {
                if (insideItem) {
@@ -42,13 +45,13 @@ object FeedReader {
             }
          } else if (eventType == XmlPullParser.END_TAG && xpp.name == "item") {
             insideItem = false
-            posts.add(BlogPost(title, description, link, imageURL))
+            blogFeed.posts.add(BlogPost(title, description, link, imageURL))
          }
 
          eventType = xpp.next()
       }
 
-      return posts
+      return blogFeed
    }
 
    fun getInputStream(url: URL): InputStream {

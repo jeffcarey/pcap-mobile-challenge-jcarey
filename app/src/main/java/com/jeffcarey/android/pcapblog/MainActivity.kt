@@ -68,9 +68,10 @@ class MainActivity : AppCompatActivity() {
 
         // Get data via ViewModel
         viewModel = ViewModelProvider(this).get(BlogFeedViewModel::class.java)
-        viewModel.posts.observe(this, Observer { posts ->
-            blogPostAdapter.setData(posts)
+        viewModel.feed.observe(this, Observer { feed->
+            blogPostAdapter.setData(feed.posts)
             blogPostAdapter.notifyDataSetChanged()
+            title = feed.feedTitle
             mainView.removeView(loaderContainer)
             mainView.addView(articlesRecyclerView)
         })
@@ -165,6 +166,7 @@ class MainActivity : AppCompatActivity() {
         override fun onBindViewHolder(holder: BlogPostHolder, position: Int) {
             val post = blogPosts[position]
 
+            holder.setIsRecyclable(false)
             holder.bindBlogPost(post, position == 0)
 
             val placeholder: Drawable = ColorDrawable()
